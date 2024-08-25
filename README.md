@@ -2,7 +2,7 @@
   <div>
     <img src="https://img.shields.io/badge/-Next_JS-black?style=for-the-badge&logoColor=white&logo=next&color=black" alt="next.js" />
     <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
-    <img src="https://img.shields.io/badge/-Three-Js-black?style=for-the-badge&logoColor=white&logo=three&color=black" alt="three.js" />
+    <img src="https://img.shields.io/badge/-Three_JS-black?style=for-the-badge&logoColor=white&logo=threedotjs&color=000000" alt="three.js" />
   </div>
 
   <h3 align="center">3D shop</h3>
@@ -261,7 +261,7 @@ const reviews = [
 
 ## <a name="assets">📦 Assets</a>
 
-Public Assets used in the project can be found [here](https://drive.google.com/file/d/1NxH1HInL6KzprzrYy-aP-odQlmFRQlYP/view?usp=sharing)
+Public Assets used in the project can be found [here](https://drive.google.com/file/d/1ObtvQI_VjKKZeBQ-p9iDx4YHJj_Iwo-q/view?usp=drive_link)
 
 ## <a name="resources">💡 Resources</a>
 
