@@ -13,6 +13,9 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
     const mountRef = useRef<HTMLDivElement | null>(null);
     const modelRef = useRef<THREE.Object3D | null>(null);
     const rotationRef = useRef<number>(0);
+    const isTouchDownRef = useRef<boolean>(false);
+    const touchStartXRef = useRef<number>(0);
+    const touchStartRotationRef = useRef<number>(0);
     const isMouseDownRef = useRef<boolean>(false); // To keep track of the current rotation
     const mouseInsideRef = useRef<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
@@ -127,6 +130,26 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
             }
         };
 
+        const handleTouchMove = (event: TouchEvent) => {
+            if (modelRef.current && isTouchDownRef.current) {
+                const touchX = event.touches[0].clientX;
+                const deltaX = touchX - touchStartXRef.current;
+                modelRef.current.rotation.y = touchStartRotationRef.current + deltaX * 0.01;
+            }
+        };
+
+        const handleTouchStart = (event: TouchEvent) => {
+            if (modelRef.current) {
+                isTouchDownRef.current = true;
+                touchStartXRef.current = event.touches[0].clientX;
+                touchStartRotationRef.current = modelRef.current.rotation.y;
+            }
+        };
+
+        const handleTouchEnd = () => {
+            isTouchDownRef.current = false;
+        };
+
         const handleMouseDown = () => {
             isMouseDownRef.current = true;
         };
@@ -165,6 +188,10 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
         mount.addEventListener('mouseup', handleMouseUp);
         mount.addEventListener('mouseenter', handleMouseEnter);
         mount.addEventListener('mouseleave', handleMouseLeave);
+
+        mount.addEventListener('touchstart', handleTouchStart);
+        mount.addEventListener('touchmove', handleTouchMove);
+        mount.addEventListener('touchend', handleTouchEnd);
     
         startAnimation();
     
@@ -177,6 +204,10 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
             mount.removeEventListener('mouseup', handleMouseUp);
             mount.removeEventListener('mouseenter', handleMouseEnter);
             mount.removeEventListener('mouseleave', handleMouseLeave);
+
+            mount.removeEventListener('touchstart', handleTouchStart);
+            mount.removeEventListener('touchmove', handleTouchMove);
+            mount.removeEventListener('touchend', handleTouchEnd);
         };
     }, [selectedProduct]);
 
