@@ -23,7 +23,8 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
 
         const loader = new GLTFLoader();
         const scene = new THREE.Scene();
-        const sceneWidth = window.innerWidth <= 1536 ? window.innerWidth : 1536;
+        const containerWidth = mount.clientWidth;
+        const sceneWidth = containerWidth <= 1536 ? containerWidth : 1536;
         const sceneHeight = window.innerWidth <= window.innerHeight ?  window.innerWidth : window.innerHeight;
         const camera = new THREE.PerspectiveCamera(75, sceneWidth / sceneHeight, 0.1, 1000);
 

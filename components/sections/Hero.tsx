@@ -31,7 +31,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div id="hero" className='h-screen max-w-[1024px] mx-auto flex flex-col p-4 pt-24 md:p-16'>
+    <div id="hero" className='relative h-screen max-w-[1024px] mx-auto flex flex-col p-4 pt-16 md:pt-24 md:p-16'>
       <div className='flex flex-col md:flex-row items-center  relative'>
         <div className='w-full h-full md:w-1/2 flex flex-col gap-8 z-10 bg-gradient-to-r from-stone-950 via-stone-950 to-transparent'>
           <div>
@@ -53,7 +53,7 @@ const Hero = () => {
             className="md:absolute left-1/4 top-4 mt-16 md:mt-0"
           />
       </div>
-      <Link href='#preview' className='flex flex-row items-top px-6 py-2 mx-auto mb-16 mt-auto border-[1px] border-slate-400 rounded-xl text-sm text-slate-400'>
+      <Link href='#preview' className='absolute bottom-16 left-1/2 transform -translate-x-1/2 flex flex-row items-top px-6 py-2 mx-auto mb-16 mt-auto border-[1px] border-slate-400 rounded-xl text-sm text-slate-400'>
         <MdKeyboardDoubleArrowDown className='w-4 h-4 mr-2 animate-ping'/>
         <span>click to scroll</span>
         <MdKeyboardDoubleArrowDown className='w-4 h-4 ml-2 animate-ping'/>
