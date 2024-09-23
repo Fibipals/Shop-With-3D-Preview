@@ -91,26 +91,40 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ## <a name="snippets">🕸️ Snippets</a>
 
 <details>
-<summary><code>tailwind.config.js</code></summary>
+<summary><code>package.json</code></summary>
 
 ```javascript
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",],
-  theme: {
-    extend: {},
+{
+  "name": "3d_shop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  plugins: [function({ addUtilities }) {
-    const newUtilities = {
-      '.bg-gradient': {
-        '@apply bg-gradient-to-br from-rose-400 to-fuchsia-700': {},
-      },
-    };
-    addUtilities(newUtilities, ['responsive', 'hover']);
-  },],
+  "dependencies": {
+    "framer-motion": "^11.3.29",
+    "next": "^14.2.13",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-fast-marquee": "^1.6.5",
+    "react-icons": "^5.3.0",
+    "three": "^0.167.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/three": "^0.167.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5"
+  }
 }
 ```
 
@@ -129,14 +143,17 @@ module.exports = {
   display: none;
 }
 
+.bg-gradient{
+  @apply bg-gradient-to-br from-rose-400 to-fuchsia-700
+}
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
-```
 
+```
 </details>
 
 <details>

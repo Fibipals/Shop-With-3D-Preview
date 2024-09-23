@@ -20,12 +20,13 @@ const Sale = () => {
     const loader = new GLTFLoader();
     const scene = new THREE.Scene();
     const containerWidth = mount.clientWidth;
-    console.log(containerWidth)
+    //console.log(containerWidth)
     const sceneWidth = containerWidth <= 1536 ? containerWidth : 1536;
     const sceneHeight = window.innerHeight >= window.innerWidth ? window.innerHeight : 744 * 1.5;
     const camera = new THREE.PerspectiveCamera(75, sceneWidth / sceneHeight, 0.1, 1000);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(sceneWidth, sceneHeight);
     mount.appendChild(renderer.domElement);
 
@@ -114,12 +115,15 @@ const Sale = () => {
   }, [isInView]);
 
   return (
-    <div className='max-w-[1536px] flex flex-col items-center gap-8 relative pt-32 mx-auto' >
+    <div className='max-w-[1536px] flex flex-col items-center gap-8 pt-32 mx-auto   relative' >
       <div ref={mountRef} className='absolute w-full top-0 md:top-[-400px] left-0'/>
+
       <h2 className='text-4xl md:text-5xl font-bold text-center'>Limited collection<br /> for sale</h2>
+      
       <p className='uppercase text-sm font-bold bg-gradient bg-clip-text text-transparent'>
         discounts up to 30%
       </p>
+
       <Link href='#preview' className='w-36 flex flex-col items-center py-3 rounded-xl text-xs bg-gradient'>
         Buy keyboard
       </Link>

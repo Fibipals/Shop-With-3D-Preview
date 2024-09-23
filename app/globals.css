@@ -7,6 +7,9 @@
   display: none;
 }
 
+.bg-gradient{
+  @apply bg-gradient-to-br from-rose-400 to-fuchsia-700
+}
 
 @layer utilities {
   .text-balance {

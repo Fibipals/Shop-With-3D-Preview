@@ -1,5 +1,5 @@
 {
-  "name": "shop",
+  "name": "3d_shop",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "framer-motion": "^11.3.29",
-    "next": "14.2.5",
+    "next": "^14.2.13",
     "react": "^18",
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.5",

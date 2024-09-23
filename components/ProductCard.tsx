@@ -29,7 +29,7 @@ const ProductCard = ({ index, imgSrc, title, price, isActive, onClick }: Product
           <h3 className='text-lg  font-semibold'>{title}</h3>
           <div className='flex flex-row items-center justify-between'>
             <p className='text-slate-400'>${price}</p>
-            <Link href='#' className='w-16 flex justify-center py-1 text-sm border-[1px] rounded-xl hover:bg-stone-200 transition duration-300 hover:text-stone-800'>Buy</Link>
+            <div className='w-16 flex justify-center py-1 text-sm border-[1px] rounded-xl hover:bg-stone-200 transition duration-300 hover:text-stone-800'>Buy</div>
           </div>
         </div>
       </AnimatedContainer>

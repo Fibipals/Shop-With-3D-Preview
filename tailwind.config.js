@@ -7,13 +7,6 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [function({ addUtilities }) {
-    const newUtilities = {
-      '.bg-gradient': {
-        '@apply bg-gradient-to-br from-rose-400 to-fuchsia-700': {},
-      },
-    };
-    addUtilities(newUtilities, ['responsive', 'hover']);
-  },],
+  plugins: [{}],
 }
 
