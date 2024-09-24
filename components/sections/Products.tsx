@@ -7,6 +7,7 @@ import Preview from './Preview';
 const Product = () => {
   const [selectedProduct, setSelectedProduct] = useState<ProductType>(
       {
+          id: "1",
           imgSrc: "/assets/hero.png",
           title: "Magic Keyboard",
           price: 79.99,

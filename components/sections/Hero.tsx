@@ -38,14 +38,14 @@ const Hero = () => {
         <div className='w-full h-full md:w-1/2 flex flex-col gap-8 z-10 bg-gradient-to-r from-stone-950 via-stone-950 to-transparent'>
 
           <div>
-            <TypingText text='Your keybord' textStyles='text-5xl md:text-6xl font-bold'/>
+            <TypingText text='Your keyboard' textStyles='text-5xl md:text-6xl font-bold'/>
             <TypingText text='your comfort!' textStyles='text-5xl md:text-6xl font-bold'/>
           </div>
 
           <p className='text-slate-400 font-semibold'>Discover a keyboard designed for both style and functionality, providing unmatched comfort and efficiency for your everyday tasks.</p>
 
           <div className='flex flex-row gap-6'>
-            <Link href="#preview" className='w-36 flex  justify-center py-3 rounded-xl text-xs bg-gradient'>Buy keybord</Link>
+            <Link href="#preview" className='w-36 flex  justify-center py-3 rounded-xl text-xs bg-gradient'>Buy keyboard</Link>
             <Link href='#features' className='w-36 flex justify-center py-3 rounded-xl text-xs border-[1px] border-white'>See more</Link>
           </div>
 
