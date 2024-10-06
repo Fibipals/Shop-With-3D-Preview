@@ -26,7 +26,7 @@ const products = [
   }
 ];
 
-export interface ProductType {
+export type ProductType = {
   id: string;
   imgSrc: string;
   title: string;
@@ -41,7 +41,6 @@ interface CatalogProps {
 
 const Catalog = ({ selectedProduct, onProductClick }:CatalogProps) => {
   return (
-    <CartProvider>
 
       <div className='max-w-[1024px] mx-auto'>
 
@@ -54,11 +53,12 @@ const Catalog = ({ selectedProduct, onProductClick }:CatalogProps) => {
           {products.map((product, index) => (
             <ProductCard 
               key={index} 
+              id={product.id}
               index={index} 
               title={product.title} 
               imgSrc={product.imgSrc} 
               price={product.price} 
-              isActive={selectedProduct.title === product.title} 
+              isActive={selectedProduct.id === product.id} 
               onClick={() => onProductClick(product)}
             />
           ))}
@@ -66,7 +66,7 @@ const Catalog = ({ selectedProduct, onProductClick }:CatalogProps) => {
 
       </div>
 
-    </CartProvider>
+   
   )
 }
 

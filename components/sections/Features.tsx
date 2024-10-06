@@ -29,9 +29,9 @@ const features = [
 const Features = () => {
   return (
     <div className='max-w-[1024px] mx-auto pt-8' id="features">
-      <h2 className='text-2xl font-semibold pl-16 pb-16'> 
+      <h2 className='text-2xl font-semibold pl-4 md:pl-16 pb-16'> 
         <span className='animate-pulse'>/ </span>
-        description
+        features
       </h2>
       <div className='flex flex-wrap items-center justify-center gap-8 max-w-[850px] mx-auto '>
         {features.map((feature, index) => (

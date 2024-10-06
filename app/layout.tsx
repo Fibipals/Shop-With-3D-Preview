@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/components/sections/Cart";
 
 const inter = Roboto({ weight:"400", subsets: ["latin"] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth bg-stone-950">
-      <body >{children}</body>
+      <CartProvider>
+        <body >{children}</body>
+      </CartProvider>
     </html>
   );
 }

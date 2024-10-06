@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+
 import * as THREE from 'three';
+
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { ProductType } from './Catalog';
 
@@ -9,16 +11,17 @@ interface PreviewProps {
     selectedProduct: ProductType | null;
 }
 
+
 const Preview = ({ selectedProduct }: PreviewProps) => {
     const mountRef = useRef<HTMLDivElement | null>(null);
     const modelRef = useRef<THREE.Object3D | null>(null);
-    const rotationRef = useRef<number>(0);
+    const isMouseDownRef = useRef<boolean>(false);
+
     const isTouchDownRef = useRef<boolean>(false);
     const touchStartXRef = useRef<number>(0);
     const touchStartRotationRef = useRef<number>(0);
-    const isMouseDownRef = useRef<boolean>(false); // To keep track of the current rotation
-    const mouseInsideRef = useRef<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(true);
+     // To keep track of the current rotation
+    //const mouseInsideRef = useRef<boolean>(false);
 
     useEffect(() => {
         const mount = mountRef.current;
@@ -70,7 +73,7 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
                 model.scale.set(1, 1, 1);
                 model.position.set(0, 12, -2);
                 scene.add(model);
-                modelRef.current = model; // Store the new model
+                modelRef.current = model;
             });
         };
 
@@ -88,47 +91,50 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
         const groundY = 0; // Ground level
         let isBouncing = false;
 
-        const startAnimation = () => {
-            const animate = () => {
-                requestAnimationFrame(animate);
+        
+        function animate (){
+            requestAnimationFrame(animate);
 
-                if (modelRef.current) {
-                    // Apply gravity
-                    velocityY -= gravity;
-                    modelRef.current.position.y += velocityY;
+            if (modelRef.current) {
+                // Apply gravity
+                velocityY -= gravity;
+                modelRef.current.position.y += velocityY;
 
-                    // Check if the model hits the ground
-                    if (modelRef.current.position.y <= groundY) {
-                        modelRef.current.position.y = groundY; // Reset to ground level
-                        velocityY *= -bounceFactor; // Invert velocityY for bouncing effect
-                        isBouncing = true; // Mark as bouncing
-                    } else {
-                        isBouncing = false; // Not bouncing
-                    }
-
-                    // Optionally reduce bounce velocityY over time
-                    if (Math.abs(velocityY) < 0.01 && isBouncing) {
-                        velocityY = 0;
-                    }
+                // Check if the model hits the ground
+                if (modelRef.current.position.y <= groundY) {
+                    modelRef.current.position.y = groundY; // Reset to ground level
+                    velocityY *= -bounceFactor; // Invert velocityY for bouncing effect
+                    isBouncing = true; // Mark as bouncing
+                } else {
+                    isBouncing = false; // Not bouncing
                 }
 
-                renderer.render(scene, camera);
-            };
+                // Optionally reduce bounce velocityY over time
+                if (Math.abs(velocityY) < 0.01 && isBouncing) {
+                    velocityY = 0;
+                }
+            }
 
-            animate();
+            renderer.render(scene, camera);
         };
 
-        // Start animation after a delay
-        const animationDelay = 200; // 0.2 seconds
-        setTimeout(startAnimation, animationDelay);
+        animate();
+        
+
+        
 
         const handleMouseMove = (event: MouseEvent) => {
-            if (modelRef.current && mouseInsideRef.current && isMouseDownRef.current) {
+            if (modelRef.current && isMouseDownRef.current) {
               const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
               modelRef.current.rotation.y = mouseX * Math.PI;
-              rotationRef.current = modelRef.current.rotation.y;
             }
         };
+
+        //
+
+        //const isTouchDownRef = useRef<boolean>(false);
+        //const touchStartXRef = useRef<number>(0);
+        //const touchStartRotationRef = useRef<number>(0);
 
         const handleTouchMove = (event: TouchEvent) => {
             if (modelRef.current && isTouchDownRef.current) {
@@ -150,50 +156,38 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
             isTouchDownRef.current = false;
         };
 
-        const handleMouseDown = () => {
-            isMouseDownRef.current = true;
-        };
+        //
 
-        const handleMouseUp = () => {
+        //  const isMouseDownRef = useRef<boolean>(false);
+
+        const handleMouseDown = () => {isMouseDownRef.current = true;};
+      
+        const handleInteractionEnd = () => {
             isMouseDownRef.current = false;
-        };
-      
-        const handleMouseEnter = () => {
-            mouseInsideRef.current = true;
-        };
-      
-        const handleMouseLeave = () => {
-            mouseInsideRef.current = false;
-            if (modelRef.current) {
-              // Animate rotation back to 0
-                const animateRotationBack = () => {
-                    if (modelRef.current) {
-                        if (Math.abs(modelRef.current.rotation.y) > 0.01) {
-                          // Adjust the rotation back towards 0
-                          modelRef.current.rotation.y -= (modelRef.current.rotation.y * 0.01);
-                          requestAnimationFrame(animateRotationBack);
-                        } else {
-                          // Ensure rotation is exactly 0
-                          modelRef.current.rotation.y = 0;
-                        }
-                      }
-                };
-      
-              animateRotationBack();
-            }
+            const animateRotationBack = () => {
+                if (modelRef.current) {
+                    if (Math.abs(modelRef.current.rotation.y) > 0.01) {
+                        modelRef.current.rotation.y -= (modelRef.current.rotation.y * 0.01);
+                        requestAnimationFrame(animateRotationBack);
+                    } else {
+                        modelRef.current.rotation.y = 0;
+                    }
+                }
+            };
+            animateRotationBack();
         };
       
         mount.addEventListener('mousemove', handleMouseMove);
         mount.addEventListener('mousedown', handleMouseDown);
-        mount.addEventListener('mouseup', handleMouseUp);
-        mount.addEventListener('mouseenter', handleMouseEnter);
-        mount.addEventListener('mouseleave', handleMouseLeave);
+        mount.addEventListener('mouseup', handleInteractionEnd);
+        //mount.addEventListener('mouseenter', handleMouseEnter);
+        mount.addEventListener('mouseleave', handleInteractionEnd);
 
         mount.addEventListener('touchstart', handleTouchStart);
         mount.addEventListener('touchmove', handleTouchMove);
         mount.addEventListener('touchend', handleTouchEnd);
     
-        startAnimation();
+        
     
         return () => {
             if (mount) {
@@ -201,9 +195,9 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
             }
             mount.removeEventListener('mousemove', handleMouseMove);
             mount.removeEventListener('mousedown', handleMouseDown);
-            mount.removeEventListener('mouseup', handleMouseUp);
-            mount.removeEventListener('mouseenter', handleMouseEnter);
-            mount.removeEventListener('mouseleave', handleMouseLeave);
+            mount.removeEventListener('mouseup', handleInteractionEnd);
+            //mount.removeEventListener('mouseenter', handleMouseEnter);
+            mount.removeEventListener('mouseleave', handleInteractionEnd);
 
             mount.removeEventListener('touchstart', handleTouchStart);
             mount.removeEventListener('touchmove', handleTouchMove);
@@ -217,3 +211,6 @@ const Preview = ({ selectedProduct }: PreviewProps) => {
 };
 
 export default Preview;
+
+
+
